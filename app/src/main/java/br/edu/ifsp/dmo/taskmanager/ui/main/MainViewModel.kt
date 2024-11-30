@@ -30,22 +30,22 @@ class MainViewModel : ViewModel() {
     }
 
     fun insertTask(description: String) {
-        taskDAO.add(Task(description, false))
+        taskDAO.insertTask(Task(description, false))
         _insertTask.value = true
         load()
     }
 
     fun updateTask(position: Int) {
         val task = taskDAO.getAll()[position]
-        task.isCompleted = !task.isCompleted
+        taskDAO.changeStatus(task)
         _updateTask.value = true
         load()
     }
 
     private fun mock() {
-        taskDAO.add(Task("Arrumar a cama", false))
-        taskDAO.add(Task("Estudar Spring MVC", true))
-        taskDAO.add(Task("Fazer o trabalho de DMO1", false))
+        taskDAO.insertTask(Task("Arrumar a cama", false))
+        taskDAO.insertTask(Task("Estudar Spring MVC", true))
+        taskDAO.insertTask(Task("Fazer o trabalho de DMO1", false))
     }
 
     private fun load() {
