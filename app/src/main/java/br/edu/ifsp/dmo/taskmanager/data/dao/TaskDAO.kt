@@ -1,6 +1,7 @@
 package br.edu.ifsp.dmo.taskmanager.data.dao
 
 import br.edu.ifsp.dmo.taskmanager.data.model.Task
+import java.util.stream.Collectors
 
 object TaskDAO {
     private var tasks: MutableList<Task> = mutableListOf()
@@ -24,6 +25,14 @@ object TaskDAO {
 
     fun getAll(): MutableList<Task> {
         return tasks
+    }
+
+    fun getDone(): MutableList<Task> {
+        return tasks.stream().filter { t -> t.isCompleted }.collect(Collectors.toList())
+    }
+
+    fun getTodo(): MutableList<Task> {
+        return tasks.stream().filter { t -> !t.isCompleted }.collect(Collectors.toList())
     }
 
     fun getById(id: Long): Task {
